@@ -8,7 +8,8 @@ class BulkIndexer
   
   def index(docs)
     Benchmark.measure do
-      docs.each do |doc|
+      docs.each_with_index do |doc,index|
+        doc.merge!(:id => index)
         result = rsolr.update(rsolr.message.add(doc, :commitWithin => 60000), :wt => 'ruby')
         raise RuntimeError, result if result !~ /'status'=>0/
       end
