@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rsolr-async}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Mitchell", "Mike Perham"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     "LICENSE",
      "README.rdoc",
      "VERSION",
+     "examples/bulk_indexer.rb",
      "lib/rsolr-async.rb"
   ]
   s.homepage = %q{http://github.com/mwmitchell/rsolr-async}
@@ -31,130 +32,7 @@ Gem::Specification.new do |s|
     "spec/rsolr-async_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
-     "Rakefile",
-     "solr/example/etc",
-     "solr/example/etc/jetty.xml",
-     "solr/example/etc/webdefault.xml",
-     "solr/example/example-DIH",
-     "solr/example/example-DIH/hsqldb",
-     "solr/example/example-DIH/hsqldb/ex.backup",
-     "solr/example/example-DIH/hsqldb/ex.data",
-     "solr/example/example-DIH/hsqldb/ex.log",
-     "solr/example/example-DIH/hsqldb/ex.properties",
-     "solr/example/example-DIH/hsqldb/ex.script",
-     "solr/example/example-DIH/README.txt",
-     "solr/example/example-DIH/solr",
-     "solr/example/example-DIH/solr/db",
-     "solr/example/example-DIH/solr/db/conf",
-     "solr/example/example-DIH/solr/db/conf/admin-extra.html",
-     "solr/example/example-DIH/solr/db/conf/db-data-config.xml",
-     "solr/example/example-DIH/solr/db/conf/elevate.xml",
-     "solr/example/example-DIH/solr/db/conf/protwords.txt",
-     "solr/example/example-DIH/solr/db/conf/schema.xml",
-     "solr/example/example-DIH/solr/db/conf/scripts.conf",
-     "solr/example/example-DIH/solr/db/conf/solrconfig.xml",
-     "solr/example/example-DIH/solr/db/conf/stopwords.txt",
-     "solr/example/example-DIH/solr/db/conf/synonyms.txt",
-     "solr/example/example-DIH/solr/db/conf/xslt",
-     "solr/example/example-DIH/solr/db/conf/xslt/example.xsl",
-     "solr/example/example-DIH/solr/db/conf/xslt/example_atom.xsl",
-     "solr/example/example-DIH/solr/db/conf/xslt/example_rss.xsl",
-     "solr/example/example-DIH/solr/db/conf/xslt/luke.xsl",
-     "solr/example/example-DIH/solr/db/lib",
-     "solr/example/example-DIH/solr/db/lib/hsqldb-1.8.0.10.jar",
-     "solr/example/example-DIH/solr/mail",
-     "solr/example/example-DIH/solr/mail/conf",
-     "solr/example/example-DIH/solr/mail/conf/data-config.xml",
-     "solr/example/example-DIH/solr/mail/conf/protwords.txt",
-     "solr/example/example-DIH/solr/mail/conf/schema.xml",
-     "solr/example/example-DIH/solr/mail/conf/solrconfig.xml",
-     "solr/example/example-DIH/solr/mail/conf/stopwords.txt",
-     "solr/example/example-DIH/solr/mail/conf/synonyms.txt",
-     "solr/example/example-DIH/solr/mail/lib",
-     "solr/example/example-DIH/solr/rss",
-     "solr/example/example-DIH/solr/rss/conf",
-     "solr/example/example-DIH/solr/rss/conf/admin-extra.html",
-     "solr/example/example-DIH/solr/rss/conf/elevate.xml",
-     "solr/example/example-DIH/solr/rss/conf/protwords.txt",
-     "solr/example/example-DIH/solr/rss/conf/rss-data-config.xml",
-     "solr/example/example-DIH/solr/rss/conf/schema.xml",
-     "solr/example/example-DIH/solr/rss/conf/scripts.conf",
-     "solr/example/example-DIH/solr/rss/conf/solrconfig.xml",
-     "solr/example/example-DIH/solr/rss/conf/stopwords.txt",
-     "solr/example/example-DIH/solr/rss/conf/synonyms.txt",
-     "solr/example/example-DIH/solr/solr.xml",
-     "solr/example/exampledocs",
-     "solr/example/exampledocs/books.csv",
-     "solr/example/exampledocs/hd.xml",
-     "solr/example/exampledocs/ipod_other.xml",
-     "solr/example/exampledocs/ipod_video.xml",
-     "solr/example/exampledocs/mem.xml",
-     "solr/example/exampledocs/monitor.xml",
-     "solr/example/exampledocs/monitor2.xml",
-     "solr/example/exampledocs/mp500.xml",
-     "solr/example/exampledocs/payload.xml",
-     "solr/example/exampledocs/post.jar",
-     "solr/example/exampledocs/post.sh",
-     "solr/example/exampledocs/sd500.xml",
-     "solr/example/exampledocs/solr.xml",
-     "solr/example/exampledocs/test_utf8.sh",
-     "solr/example/exampledocs/utf8-example.xml",
-     "solr/example/exampledocs/vidcard.xml",
-     "solr/example/lib",
-     "solr/example/lib/jetty-6.1.3.jar",
-     "solr/example/lib/jetty-util-6.1.3.jar",
-     "solr/example/lib/jsp-2.1",
-     "solr/example/lib/jsp-2.1/ant-1.6.5.jar",
-     "solr/example/lib/jsp-2.1/core-3.1.1.jar",
-     "solr/example/lib/jsp-2.1/jsp-2.1.jar",
-     "solr/example/lib/jsp-2.1/jsp-api-2.1.jar",
-     "solr/example/lib/servlet-api-2.5-6.1.3.jar",
-     "solr/example/logs",
-     "solr/example/multicore",
-     "solr/example/multicore/core0",
-     "solr/example/multicore/core0/conf",
-     "solr/example/multicore/core0/conf/schema.xml",
-     "solr/example/multicore/core0/conf/solrconfig.xml",
-     "solr/example/multicore/core1",
-     "solr/example/multicore/core1/conf",
-     "solr/example/multicore/core1/conf/schema.xml",
-     "solr/example/multicore/core1/conf/solrconfig.xml",
-     "solr/example/multicore/exampledocs",
-     "solr/example/multicore/exampledocs/ipod_other.xml",
-     "solr/example/multicore/exampledocs/ipod_video.xml",
-     "solr/example/multicore/README.txt",
-     "solr/example/multicore/solr.xml",
-     "solr/example/README.txt",
-     "solr/example/solr",
-     "solr/example/solr/bin",
-     "solr/example/solr/conf",
-     "solr/example/solr/conf/admin-extra.html",
-     "solr/example/solr/conf/elevate.xml",
-     "solr/example/solr/conf/mapping-ISOLatin1Accent.txt",
-     "solr/example/solr/conf/protwords.txt",
-     "solr/example/solr/conf/schema.xml",
-     "solr/example/solr/conf/scripts.conf",
-     "solr/example/solr/conf/solrconfig.xml",
-     "solr/example/solr/conf/spellings.txt",
-     "solr/example/solr/conf/stopwords.txt",
-     "solr/example/solr/conf/synonyms.txt",
-     "solr/example/solr/conf/xslt",
-     "solr/example/solr/conf/xslt/example.xsl",
-     "solr/example/solr/conf/xslt/example_atom.xsl",
-     "solr/example/solr/conf/xslt/example_rss.xsl",
-     "solr/example/solr/conf/xslt/luke.xsl",
-     "solr/example/solr/data",
-     "solr/example/solr/data/index",
-     "solr/example/solr/data/index/segments.gen",
-     "solr/example/solr/data/index/segments_1",
-     "solr/example/solr/data/spellchecker",
-     "solr/example/solr/data/spellchecker/segments.gen",
-     "solr/example/solr/data/spellchecker/segments_1",
-     "solr/example/solr/README.txt",
-     "solr/example/start.jar",
-     "solr/example/webapps",
-     "solr/example/webapps/solr.war",
-     "solr/example/work"
+     "Rakefile"
   ]
 
   if s.respond_to? :specification_version then
@@ -164,13 +42,19 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_runtime_dependency(%q<rsolr>, [">= 0.12.1"])
+      s.add_runtime_dependency(%q<eventmachine>, [">= 0.12.10"])
+      s.add_runtime_dependency(%q<em-http-request>, [">= 0.2.6"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_dependency(%q<rsolr>, [">= 0.12.1"])
+      s.add_dependency(%q<eventmachine>, [">= 0.12.10"])
+      s.add_dependency(%q<em-http-request>, [">= 0.2.6"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
     s.add_dependency(%q<rsolr>, [">= 0.12.1"])
+    s.add_dependency(%q<eventmachine>, [">= 0.12.10"])
+    s.add_dependency(%q<em-http-request>, [">= 0.2.6"])
   end
 end
 

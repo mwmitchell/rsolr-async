@@ -15,7 +15,7 @@ begin
     gem.add_dependency "eventmachine", ">= 0.12.10"
     gem.add_dependency "em-http-request", ">= 0.2.6"
     
-    gem.files = FileList['lib/**/*.rb', 'LICENSE', 'README.rdoc', 'VERSION']
+    gem.files = FileList['lib/**/*.rb', 'examples/**', 'LICENSE', 'README.rdoc', 'VERSION']
     gem.test_files = ['spec/*', 'Rakefile', 'solr/example/**/*']
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
