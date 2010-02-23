@@ -50,6 +50,10 @@ module RSolr::Async
         yielding = false
         fiber.resume if Fiber.current != fiber
       end
+      http_response.errback do
+        yielding = false
+        fiber.resume if Fiber.current != fiber
+      end
       Fiber.yield if yielding
       create_http_context http_response, path, params
     end
@@ -59,6 +63,10 @@ module RSolr::Async
       fiber = Fiber.current
       http_response = self.connection(path).post :query => params, :body => data, :head => headers, :timeout => 5
       http_response.callback do
+        yielding = false
+        fiber.resume if Fiber.current != fiber
+      end
+      http_response.errback do
         yielding = false
         fiber.resume if Fiber.current != fiber
       end
