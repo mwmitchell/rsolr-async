@@ -40,12 +40,16 @@ module RSolr::Async
       REQUEST_CLASS.new("#{@uri.to_s}#{path}")
     end
     
+    def timeout
+      opts[:timeout] || 5
+    end
+
     def get path, params={}
       # this yield/resume business is complicated by em-http's mocking support which
       # yields to the callback immediately rather than from another fiber.
       yielding = true
       fiber = Fiber.current
-      http_response = self.connection(path).get :query => params, :timeout => 5
+      http_response = self.connection(path).get :query => params, :timeout => timeout
       http_response.callback do
         yielding = false
         fiber.resume if Fiber.current != fiber
@@ -61,7 +65,7 @@ module RSolr::Async
     def post path, data, params={}, headers={}
       yielding = true
       fiber = Fiber.current
-      http_response = self.connection(path).post :query => params, :body => data, :head => headers, :timeout => 5
+      http_response = self.connection(path).post :query => params, :body => data, :head => headers, :timeout => timeout
       http_response.callback do
         yielding = false
         fiber.resume if Fiber.current != fiber
