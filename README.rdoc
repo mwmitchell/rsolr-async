@@ -7,7 +7,7 @@ Ruby 1.9 is required, as well as the em-http-request and eventmachine gems.
 =How
 Just pass-in :async to the RSolr.connect method:
   require 'rsolr-async'
-  rsolr = RSolr.connect(:async, :url => 'http://localhost:8983/solr')
+  rsolr = RSolr.connect(RSolr::AsyncConnection, :url => 'http://localhost:8983/solr')
 
 == Note on Patches/Pull Requests
  

@@ -1,29 +1,21 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 require 'em-http'
-require 'em-http/mock'
+require 'webmock/rspec'
 
-describe RSolr::Async do
+describe RSolr do
   
   context 'initialization' do
     
-    it 'should modifiy RSolr' do
-      RSolr.should be_a(RSolr::Async::Connectable)
-    end
-    
     it 'should not change the default connect behavior' do
-      RSolr.connect.connection.should be_a(RSolr::Connection::NetHttp)
+      RSolr.connect(:url => 'http://localhost:8983/solr').connection.should be_a(RSolr::Connection)
     end
     
     it 'should create an instance of RSolr::Async::Connection when :async is used' do
-      RSolr.connect(:async, :url=>'http://localhost:8983/solr').connection.should be_a(RSolr::Async::Connection)
+      RSolr.connect(RSolr::AsyncConnection, :url=>'http://localhost:8983/solr').connection.should be_a(RSolr::AsyncConnection)
     end
     
   end
-  
-  RSolr::Async::Connection::REQUEST_CLASS = EM::MockHttpRequest
-  
-  let(:new_connection){ RSolr::Async::Connection.new }
   
   context '#request' do
     it 'should forward simple, non-data calls to #get' do
@@ -34,7 +26,6 @@ describe RSolr::Async do
           EM.stop
         end
         
-        EM::MockHttpRequest.pass_through_requests = false
         body = <<-EOM
 HTTP/1.1 200 OK
 Date: Mon, 16 Nov 2009 20:39:15 GMT
@@ -48,13 +39,16 @@ Connection: close
 <lst name="responseHeader"><int name="status">0</int><int name="QTime">1</int><lst name="params"><str name="q">a</str></lst></lst><result name="response" numFound="0" start="0"/>
 </response>
 EOM
-        EM::MockHttpRequest.register 'http://127.0.0.1:8983/solr/select?q=a', :get, body
+
+        stub_request(:get, 'http://127.0.0.1:8983/solr/select?wt=ruby&q=a')
+          .to_return(:body => body, :status => 200)
         
         Fiber.new do
           begin
-            http = new_connection
-            resp = http.request('/select', :q=>'a')
-            resp[:status_code].should == 200
+
+            solr = RSolr.connect :url => 'http://127.0.0.1:8983/solr'
+            rsp = solr.get 'select', params: { q: 'a' }
+            rsp[:status_code].should == 200
           rescue Exception => ex
             puts ex.message
             puts ex.backtrace.join("\n")
