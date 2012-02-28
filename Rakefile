@@ -10,10 +10,11 @@ begin
     gem.email = "goodieboy@gmail.com"
     gem.homepage = "http://github.com/mwmitchell/rsolr-async"
     gem.authors = ["Matt Mitchell", "Mike Perham"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_dependency "rsolr", ">= 0.12.1"
-    gem.add_dependency "eventmachine", ">= 0.12.10"
-    gem.add_dependency "em-http-request", ">= 0.2.6"
+    gem.add_development_dependency "rspec", ">= 2.3"
+    gem.add_dependency "rsolr", ">= 1.0.7"
+    gem.add_dependency "eventmachine", ">= 1.0.0.beta.4"
+    gem.add_dependency "em-http-request", ">= 1.0.1"
+    gem.add_dependency "webmock", ">= 1.8.0"
     
     gem.files = FileList['lib/**/*.rb', 'examples/**', 'LICENSE', 'README.rdoc', 'VERSION']
     gem.test_files = ['spec/*', 'Rakefile', 'solr/example/**/*']
@@ -25,23 +26,18 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
-end
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
 
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
+RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
 task :spec => :check_dependencies
 
-task :default => :spec
+task :default => [:spec]
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
